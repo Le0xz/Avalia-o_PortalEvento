@@ -167,7 +167,7 @@ function mostrarNovoEvento() {
 
         const mensagem = document.querySelector("#mensagem");
 
-        if (!titulo || !tipo || !data || !local || !descricao) {
+        if (!NomedoEvento || !QualtipodeEvento || !DataPlanejada || !LocaldoEvento || !descricao) {
             mensagem.innerHTML = `
                 <div class="alert alert-danger">
                     Preencha todos os campos obrigatórios.
