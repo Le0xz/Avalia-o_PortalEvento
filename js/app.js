@@ -2,20 +2,20 @@
 let eventos = [
     {
         id: 1,
-        titulo: "Workshop de Git e GitHub",
-        tipo: "Workshop",
+        titulo: "Concurso de Programaçaõ",
+        tipo: "Torneio Técnico",
         data: "2026-09-25",
-        local: "Laboratório 2",
-        descricao: "Atividade prática sobre versionamento.",
+        local: "São Paulo",
+        descricao: "Torneio para socialização barata.",
         status: "Agendado"
     },
     {
         id: 2,
-        titulo: "Palestra sobre Inteligência Artificial",
+        titulo: "Palestra sobre alguma coisa",
         tipo: "Palestra",
         data: "2026-10-05",
-        local: "Auditório Principal",
-        descricao: "Palestra introdutória sobre Inteligência Artificial.",
+        local: "Auditório Principal (Bahia)",
+        descricao: "Palestra surpresa (OBRIGATORIO).",
         status: "Agendado"
     },
     {
@@ -23,7 +23,7 @@ let eventos = [
         titulo: "Minicurso de Desenvolvimento Web",
         tipo: "Minicurso",
         data: "2026-10-15",
-        local: "Laboratório 1",
+        local: "Laboratório 1 (São Paulo)",
         descricao: "Minicurso sobre desenvolvimento de aplicações web.",
         status: "Realizado"
     }
@@ -68,7 +68,7 @@ function mostrarDashboard() {
     }).length;
 
     const realizados = eventos.filter(evento => {
-        return evento.status === "Realizado";
+        return evento.status === "Terminado";
     }).length;
 
     app.innerHTML = `
@@ -79,7 +79,7 @@ function mostrarDashboard() {
             <div class="col-md-4">
                 <div class="card text-center shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Total de Eventos</h5>
+                        <h5 class="card-title">Total de eventos no dia</h5>
                         <h2>${total}</h2>
                     </div>
                 </div>
@@ -88,7 +88,7 @@ function mostrarDashboard() {
             <div class="col-md-4">
                 <div class="card text-center shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Eventos Agendados</h5>
+                        <h5 class="card-title">Eventos na agenda</h5>
                         <h2>${agendados}</h2>
                     </div>
                 </div>
@@ -97,7 +97,7 @@ function mostrarDashboard() {
             <div class="col-md-4">
                 <div class="card text-center shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Eventos Realizados</h5>
+                        <h5 class="card-title">Eventos realizados/terminados</h5>
                         <h2>${realizados}</h2>
                     </div>
                 </div>
@@ -110,35 +110,36 @@ function mostrarDashboard() {
 // Tela de cadastro
 function mostrarNovoEvento() {
     app.innerHTML = `
-        <h1 class="mb-4">Novo Evento</h1>
+        <h1 class="mb-4">Criar um Novo Evento</h1>
 
         <div id="mensagem"></div>
 
         <form id="formEvento">
 
             <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
+                <label for="Nome do Evento" class="form-label">Nome do Evento</label>
                 <input type="text" id="titulo" class="form-control">
             </div>
 
             <div class="mb-3">
-                <label for="tipo" class="form-label">Tipo</label>
+                <label for="Qual tipo de Evento?" class="form-label">Qual tipo de Evento?</label>
                 <select id="tipo" class="form-select">
                     <option value="">Selecione</option>
                     <option value="Palestra">Palestra</option>
                     <option value="Workshop">Workshop</option>
                     <option value="Minicurso">Minicurso</option>
+                    <option value="Torneios">Torneios Técnicos</option>
                     <option value="Visita Técnica">Visita Técnica</option>
                 </select>
             </div>
 
             <div class="mb-3">
-                <label for="data" class="form-label">Data</label>
+                <label for="Data Planejada" class="form-label">Data Planejada</label>
                 <input type="date" id="data" class="form-control">
             </div>
 
             <div class="mb-3">
-                <label for="local" class="form-label">Local</label>
+                <label for="Local do Evento?" class="form-label">Local do Evento?</label>
                 <input type="text" id="local" class="form-control">
             </div>
 
@@ -159,11 +160,10 @@ function mostrarNovoEvento() {
     formulario.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const titulo = document.querySelector("#titulo").value.trim();
-        const tipo = document.querySelector("#tipo").value;
-        const data = document.querySelector("#data").value;
-        const local = document.querySelector("#local").value.trim();
-        const descricao = document.querySelector("#descricao").value.trim();
+        const titulo = document.querySelector("#Nome do Evento").value.trim();
+        const tipo = document.querySelector("#Qual tipo de Evento?").value;
+        const data = document.querySelector("#Data Planejada").value;
+        const local = document.querySelector("#Local do Evento?").value.trim();
 
         const mensagem = document.querySelector("#mensagem");
 
@@ -214,26 +214,26 @@ function mostrarEventos() {
 
             <div class="col-md-8">
                 <label for="pesquisa" class="form-label">
-                    Pesquisar por título
+                    Pesquisar Evento
                 </label>
 
                 <input
                     type="text"
                     id="pesquisa"
                     class="form-control"
-                    placeholder="Digite o título do evento..."
+                    placeholder="Digite o nome do evento..."
                 >
             </div>
 
             <div class="col-md-4">
                 <label for="filtroStatus" class="form-label">
-                    Filtrar por status
+                    Filtrar Status do Evento
                 </label>
 
                 <select id="filtroStatus" class="form-select">
                     <option value="Todos">Todos</option>
                     <option value="Agendado">Agendado</option>
-                    <option value="Realizado">Realizado</option>
+                    <option value="Realizado">Terminados</option>
                 </select>
             </div>
 
@@ -357,10 +357,10 @@ function criarCardEvento(evento, lista) {
             "me-2"
         );
 
-        botaoRealizar.textContent = "Marcar como Realizado";
+        botaoRealizar.textContent = "Evento Terminado";
 
         botaoRealizar.addEventListener("click", function () {
-            marcarComoRealizado(evento.id);
+            EventoTerminado(evento.id);
         });
 
         acoes.appendChild(botaoRealizar);
@@ -395,8 +395,8 @@ function criarCardEvento(evento, lista) {
     lista.appendChild(coluna);
 }
 
-// Marca o evento como realizado
-function marcarComoRealizado(id) {
+// Esse marca sobre os eventos
+function EventoTerminado(id) {
     const evento = eventos.find(evento => evento.id === id);
 
     if (evento) {
