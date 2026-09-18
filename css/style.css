@@ -1,0 +1,28 @@
+body {
+    background-color: #f5f5f5;
+}
+
+#app {
+    min-height: 500px;
+}
+
+.card-evento {
+    height: 100%;
+}
+
+.card-evento .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-evento .descricao {
+    flex-grow: 1;
+}
+
+.acoes {
+    margin-top: 15px;
+}
+
+.status-badge {
+    font-size: 0.85rem;
+}
