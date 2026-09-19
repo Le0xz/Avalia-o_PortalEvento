@@ -1,4 +1,4 @@
-// Array inicial de eventos
+// Array inicial de eventos na página
 let eventos = [
     {
         id: 1,
@@ -29,13 +29,13 @@ let eventos = [
     }
 ];
 
-// Elemento principal da aplicação
+// Elemento principal onde as telas são renderizadas
 const app = document.querySelector("#app");
 
-// Links do menu
+// Links do menu de navegação
 const linksMenu = document.querySelectorAll("[data-view]");
 
-// Eventos do menu
+// Eventos de clique do menu para alternar entre as views da SPA
 linksMenu.forEach(link => {
     link.addEventListener("click", function (event) {
         event.preventDefault();
@@ -52,14 +52,16 @@ linksMenu.forEach(link => {
     });
 });
 
-// Formata a data
+/** Formata a data do formato padrão americano (AAAA-MM-DD), para o formato brasileiro (DD/MM/AAAA).
+ */
 function formatarData(data) {
     const partes = data.split("-");
 
     return `${partes[2]}/${partes[1]}/${partes[0]}`;
 }
 
-// Dashboard
+/** Renderiza a tela de Dashboard no elemento (#app), calculando e exibindo estatísticas sobre a quantidade de eventos.
+ */
 function mostrarDashboard() {
     const total = eventos.length;
 
@@ -107,7 +109,8 @@ function mostrarDashboard() {
     `;
 }
 
-// Tela de cadastro
+/** Renderiza o formulário de cadastro de um novo evento e gerencia a submissão dos dados, validação e adição ao array.
+ */
 function mostrarNovoEvento() {
     app.innerHTML = `
         <h1 class="mb-4">Criar um Novo Evento</h1>
@@ -160,14 +163,15 @@ function mostrarNovoEvento() {
     formulario.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const titulo = document.querySelector("#Nome do Evento").value.trim();
-        const tipo = document.querySelector("#Qual tipo de Evento?").value;
-        const data = document.querySelector("#Data Planejada").value;
-        const local = document.querySelector("#Local do Evento?").value.trim();
+        const titulo = document.querySelector("#titulo").value.trim();
+        const tipo = document.querySelector("#tipo").value;
+        const data = document.querySelector("#data").value;
+        const local = document.querySelector("#local").value.trim();
+        const descricao = document.querySelector("#descricao").value.trim();
 
         const mensagem = document.querySelector("#mensagem");
 
-        if (!NomedoEvento || !QualtipodeEvento || !DataPlanejada || !LocaldoEvento || !descricao) {
+        if (!titulo || !tipo || !data || !local || !descricao) {
             mensagem.innerHTML = `
                 <div class="alert alert-danger">
                     Preencha todos os campos obrigatórios.
@@ -205,7 +209,8 @@ function mostrarNovoEvento() {
     });
 }
 
-// Tela de eventos
+/** Renderiza a tela de listagem de eventos contendo, os campos de pesquisa por texto e filtro por status.
+ */
 function mostrarEventos() {
     app.innerHTML = `
         <h1 class="mb-4">Eventos</h1>
@@ -252,7 +257,8 @@ function mostrarEventos() {
     atualizarLista();
 }
 
-// Atualiza a lista de eventos
+/** Filtra o array de eventos com base no termo digitado e no status selecionado, atualizando a exibição na tela.
+ */
 function atualizarLista() {
     const lista = document.querySelector("#listaEventos");
 
@@ -301,7 +307,8 @@ function atualizarLista() {
     });
 }
 
-// Cria o card dinamicamente
+/** Cria dinamicamente via DOM os elementos HTML do card de um evento específico e adiciona os botões de ação (Concluir e Excluir).
+ */
 function criarCardEvento(evento, lista) {
     const coluna = document.createElement("div");
     coluna.classList.add("col-md-6", "col-lg-4");
@@ -395,7 +402,8 @@ function criarCardEvento(evento, lista) {
     lista.appendChild(coluna);
 }
 
-// Esse marca sobre os eventos
+/** Altera o status de um evento específico para "Realizado" com base no ID fornecido e atualiza a interface.
+ */
 function EventoTerminado(id) {
     const evento = eventos.find(evento => evento.id === id);
 
@@ -405,12 +413,13 @@ function EventoTerminado(id) {
     }
 }
 
-// Exclui o evento
+/** Remove um evento do array de eventos com base no ID e atualiza a listagem exibida na tela.
+ */
 function excluirEvento(id) {
     eventos = eventos.filter(evento => evento.id !== id);
 
     mostrarEventos();
 }
 
-// Abre inicialmente no Dashboard
+// Inicializa a aplicação abrindo primeiramente no Dashboard
 mostrarDashboard();

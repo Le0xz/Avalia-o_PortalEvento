@@ -1,28 +1,36 @@
+/* Estilo que o corpo da página possui no site */
 body {
-    background-color: #f5f5f5;
+    background-color: #a5a0a0ea;
 }
 
+/* Estilo do container principal do site, que garante a altura do conteudo */
 #app {
-    min-height: 500px;
+    min-height: 900px;
 }
 
+/* Aplicada aos cards dos eventos, que faz o card ocupar 100% do espaço disponivel */
 .card-evento {
     height: 100%;
 }
 
+/* Corpo interno do card de evento, que organizar em colunas e de jeito flexivel */
 .card-evento .card-body {
     display: flex;
     flex-direction: column;
 }
 
+/* Seção de descrição dentro do card de evento */
 .card-evento .descricao {
     flex-grow: 1;
 }
 
+/* Área reservada para botões ou ações */
 .acoes {
     margin-top: 15px;
 }
 
+/* Estilo para badges (etiquetas) de status e Reduz o tamanho da fonte para 0.85rem, 
+deixando o texto da etiqueta mais discreto e proporcional */
 .status-badge {
     font-size: 0.85rem;
 }
